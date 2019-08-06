@@ -48,4 +48,12 @@ class Picture {
       this._date = date;
     }
 
+    factory Picture.fromJson(Map<String, dynamic> json) {
+      Picture p = Picture();
+      p.title = json["title"];
+      
+
+      return p;
+    }
+
 }
