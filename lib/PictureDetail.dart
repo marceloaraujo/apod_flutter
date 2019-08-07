@@ -60,7 +60,7 @@ class _PictureDetailState extends State<PictureDetail> {
         },
         tooltip: 'Adicionar aos favoritos',
         backgroundColor: Colors.black87,
-        child: Icon(Icons.favorite_border),
+        child: widget.picture.isLiked ? Icon(Icons.favorite, color: Colors.red) : Icon(Icons.favorite_border)
       ),
     );
   }

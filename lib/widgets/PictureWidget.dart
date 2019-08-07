@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:apod/entity/Picture.dart';
 import 'package:apod/widgets/ExpandableText.dart';
 
+import '../Home.dart';
+
 class PictureWidget extends StatefulWidget {
 
-  PictureWidget({@required this.picture});
+  PictureWidget({@required this.picture, @required this.index, @required this.callback});
 
   Picture picture;
+  int index;
+  final MyCallback callback; //callback instanciado para ser chamado
 
   @override
   _PictureWidgetState createState() => _PictureWidgetState();
@@ -16,10 +20,22 @@ class PictureWidget extends StatefulWidget {
 
 class _PictureWidgetState extends State<PictureWidget> {
 
+  Icon _favorite = Icon(Icons.favorite_border, size: 35);
+  // Icon _favoriteChecked = Icon(Icons.favorite, color: Colors.red, size: 35);
+
   void _goToDetail(Picture p) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) => PictureDetail(p)
     ));
+  }
+
+  void _addToFavorite(Picture p) {
+    // p.liked = !p.isLiked;
+    // setState(() {
+    //   _favorite = p.isLiked ? Icon(Icons.favorite, color: Colors.red, size: 35) : Icon(Icons.favorite_border, size: 35);
+    // });
+    p.liked = !p.isLiked;
+    widget.callback(p, widget.index); //chamando o callback que irá dar like na foto
   }
 
   @override
@@ -48,6 +64,7 @@ class _PictureWidgetState extends State<PictureWidget> {
           ),
           GestureDetector(
             onTap: () => _goToDetail(widget.picture),
+            onDoubleTap: () => _addToFavorite(widget.picture),
             child: Hero(//Usado para animar a transição da imagem
               tag: "picture-${widget.picture.title}",
               child: Image.network(
@@ -63,10 +80,7 @@ class _PictureWidgetState extends State<PictureWidget> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 10, top: 10),
-                child: Icon(
-                  Icons.favorite_border,
-                  size: 35
-                ),
+                child: widget.picture.isLiked ? Icon(Icons.favorite, color: Colors.red, size: 35) : Icon(Icons.favorite_border, size: 35)
               )
             ],
           ),

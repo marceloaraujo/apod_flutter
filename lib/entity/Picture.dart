@@ -5,6 +5,7 @@ class Picture {
     String _mediaType;
     String _url;
     DateTime _date;
+    bool _liked = false;
 
     Picture();
 
@@ -48,6 +49,14 @@ class Picture {
       this._date = date;
     }
 
+    bool get isLiked {
+      return _liked;
+    }
+
+    set liked(bool liked) {
+      this._liked = liked;
+    }
+
     factory Picture.fromJson(Map<String, dynamic> json) {
       Picture p = Picture();
       p.title = json["title"];
@@ -55,7 +64,7 @@ class Picture {
       p.mediaType = json["media_type"];
       p.url = json["url"];
       p.date = DateTime.parse(json["date"]);
-
+      p.liked = false;
       return p;
     }
 

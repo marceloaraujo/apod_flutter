@@ -9,9 +9,12 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+typedef void MyCallback(Picture p, int index); //Criando um callback
+
 class _HomeState extends State<Home> {
 
   List<Picture> pictures = List();
+
 
   void _getPictures() {
     RestService.getPictures().then((response) {
@@ -20,6 +23,12 @@ class _HomeState extends State<Home> {
         pictures = list.map((model) => Picture.fromJson(model)).toList();
         print(pictures);
       });
+    });
+  }
+
+  void addToFavorite(Picture p, int index) {
+    setState(() {
+      pictures[index] = p;
     });
   }
 
@@ -48,7 +57,9 @@ class _HomeState extends State<Home> {
           itemBuilder: (context, index) {
             Picture p = pictures[index];
             return PictureWidget(
-              picture: p
+              picture: p,
+              index: index,
+              callback: addToFavorite, //passando a função que será chamada para dar like na foto
             );
           },
         ),
