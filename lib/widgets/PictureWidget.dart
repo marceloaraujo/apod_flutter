@@ -1,3 +1,5 @@
+import 'package:apod/PictureDetail.dart';
+import 'package:apod/entity/Picture.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:apod/entity/Picture.dart';
 import 'package:apod/widgets/ExpandableText.dart';
@@ -13,6 +15,13 @@ class PictureWidget extends StatefulWidget {
 }
 
 class _PictureWidgetState extends State<PictureWidget> {
+
+  void _goToDetail(Picture p) {
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) => PictureDetail(p)
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,21 +35,29 @@ class _PictureWidgetState extends State<PictureWidget> {
                 CircleAvatar(backgroundImage: NetworkImage(widget.picture.url)),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
-                ),
-                Text(
-                  widget.picture.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold
+                  child: Text(
+                    widget.picture.title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold
+                    )
                   ),
-                  )
+                ),
+                
               ],
             ),
           ),
-          Image.network(
-            widget.picture.url,
-            height: 300,
-            width: double.infinity,
-            fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () => _goToDetail(widget.picture),
+            child: Hero(//Usado para animar a transição da imagem
+              tag: "picture-${widget.picture.title}",
+              child: Image.network(
+                widget.picture.url,
+                height: 300,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            )
+            
           ),
           Row(
             children: <Widget>[

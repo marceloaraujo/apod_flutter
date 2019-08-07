@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text("APOD"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.black87,
       ),
       body: Container(
         child: ListView.builder(
