@@ -51,7 +51,10 @@ class Picture {
     factory Picture.fromJson(Map<String, dynamic> json) {
       Picture p = Picture();
       p.title = json["title"];
-      
+      p.explanation = json["explanation"];
+      p.mediaType = json["media_type"];
+      p.url = json["url"];
+      p.date = DateTime.parse(json["date"]);
 
       return p;
     }

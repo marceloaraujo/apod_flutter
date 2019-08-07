@@ -1,4 +1,4 @@
-package com.example.apod;
+package com.mapps.apod;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
