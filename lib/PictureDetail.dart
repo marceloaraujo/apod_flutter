@@ -43,7 +43,15 @@ class _PictureDetailState extends State<PictureDetail> {
           ];
         },
         body: Center(
-          child: Text(widget.picture.explanation),
+          child: Padding(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Text(
+              widget.picture.explanation,
+              style: TextStyle(
+                fontSize: 18
+              ),
+            ),
+          )
         ),
       ),
       floatingActionButton: FloatingActionButton(
