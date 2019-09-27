@@ -1,17 +1,21 @@
+import 'package:apod/Home.dart';
 import 'package:apod/entity/Picture.dart';
 import 'package:flutter/material.dart';
 
 class PictureDetail extends StatefulWidget {
 
   Picture picture;
+  int index;
+  final MyCallback callback;
 
-  PictureDetail(this.picture);
+  PictureDetail(this.picture, this.callback, this.index);
 
   @override
   _PictureDetailState createState() => _PictureDetailState();
 }
 
 class _PictureDetailState extends State<PictureDetail> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +60,7 @@ class _PictureDetailState extends State<PictureDetail> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          widget.callback(widget.picture, widget.index);
         },
         tooltip: 'Adicionar aos favoritos',
         backgroundColor: Colors.black87,

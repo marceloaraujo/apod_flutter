@@ -1,5 +1,4 @@
 import 'package:apod/PictureDetail.dart';
-import 'package:apod/entity/Picture.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:apod/entity/Picture.dart';
 import 'package:apod/widgets/ExpandableText.dart';
@@ -25,7 +24,7 @@ class _PictureWidgetState extends State<PictureWidget> {
 
   void _goToDetail(Picture p) {
     Navigator.push(context, MaterialPageRoute(
-      builder: (context) => PictureDetail(p)
+      builder: (context) => PictureDetail(p, widget.callback, widget.index)
     ));
   }
 
@@ -50,13 +49,16 @@ class _PictureWidgetState extends State<PictureWidget> {
               children: <Widget>[
                 CircleAvatar(backgroundImage: NetworkImage(widget.picture.url)),
                 Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    widget.picture.title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold
-                    )
-                  ),
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: Flexible(
+                    child: Text(
+                      widget.picture.title,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      )
+                    ),
+                  )
                 ),
                 
               ],
